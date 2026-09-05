@@ -2,11 +2,6 @@
 
 A Personal Finance Manager REST API built for the Syfe Backend Intern assignment. This application provides secure transaction tracking, budget categorization, and savings goal management.
 
-## Live API
-
-**Live Application:**
-https://personal-finance-manager-nw2c.onrender.com
-
 **API Base URL:**
 https://personal-finance-manager-nw2c.onrender.com/api
 

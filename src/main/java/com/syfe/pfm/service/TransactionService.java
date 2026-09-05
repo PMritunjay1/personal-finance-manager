@@ -62,9 +62,9 @@ public class TransactionService {
         return mapToResponse(saved);
     }
     
-    public TransactionListResponse getTransactions(LocalDate startDate, LocalDate endDate, Long categoryId, CategoryType type) {
+    public TransactionListResponse getTransactions(LocalDate startDate, LocalDate endDate, String categoryName, CategoryType type) {
         Long userId = securityUtils.getCurrentUserId();
-        List<Transaction> transactions = transactionRepository.findFilteredTransactions(userId, startDate, endDate, categoryId, type);
+        List<Transaction> transactions = transactionRepository.findFilteredTransactions(userId, startDate, endDate, categoryName, type);
         
         List<TransactionResponse> responses = transactions.stream()
             .map(this::mapToResponse)

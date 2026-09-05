@@ -24,44 +24,60 @@ https://personal-finance-manager-nw2c.onrender.com/api
 - Global exception handling
 - User-data isolation
 
-## Architecture
+## 🏗️ Architecture
 
-The application is built as a simple layered monolith.
+The application uses a simple layered structure. Each layer has one main responsibility.
 
 ```text
-Client
-  ↓
-Controller
-  ↓
-Service
-  ↓
-Repository
-  ↓
-H2 Database
+┌──────────────────────────────┐
+│        Client / Postman      │
+└──────────────┬───────────────┘
+               │ HTTP Request
+               ▼
+┌──────────────────────────────┐
+│         Controller           │
+│ Receives requests and sends  │
+│ HTTP responses               │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│           Service            │
+│ Contains business logic and  │
+│ validation rules             │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│         Repository           │
+│ Performs database operations │
+│ using Spring Data JPA        │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│        H2 Database           │
+│        In-memory DB          │
+└──────────────────────────────┘
 ```
 
-- **Controller** → handles HTTP requests/responses
-- **Service** → contains business logic
-- **Repository** → handles database access
-- **Entity** → represents database data
-- **DTO** → represents API request/response data
-- **Security** → handles authentication/session
-- **Exception** → handles API errors
+## 🛠️ Technology Stack
 
-## Technology Stack
-
-- Java 17
-- Spring Boot
-- Spring Security
-- Spring Data JPA / Hibernate
-- H2
-- Maven
-- JUnit 5
-- Mockito
-- MockMvc
-- JaCoCo
-- Docker
-- Render
+| Technology | Why it is used |
+|---|---|
+| Java 17 | Main programming language |
+| Spring Boot | Builds the REST API and runs the application |
+| Spring Security | Handles login, sessions, and protected endpoints |
+| Spring Data JPA | Simplifies database operations |
+| Hibernate | Maps Java entities to database tables |
+| H2 | In-memory database for storing application data |
+| Maven | Builds the project and manages dependencies |
+| JUnit 5 | Automated testing |
+| Mockito | Mocking dependencies in unit tests |
+| MockMvc | Testing REST API endpoints |
+| JaCoCo | Measures test coverage |
+| Docker | Packages the application for deployment |
+| Render | Hosts the deployed application |
 
 ## Authentication
 
@@ -140,23 +156,23 @@ The application uses H2 as an in-memory database. H2 is permitted by the assignm
 
 *(On Windows, use `.\mvnw` instead of `./mvnw`)*
 
-## Testing
+## 🧪 Testing and Coverage
 
-The project contains automated tests covering:
-- authentication
-- validation
-- transactions
-- categories
-- savings goals
-- reports
-- exception handling
-- user-data isolation
+The project uses automated tests to verify application behavior without manual checks.
 
+**What is tested:**
+- User authentication and data isolation
+- Input validation and exception handling
+- Transaction and category management
+- Savings goal calculations
+- Monthly and yearly report generation
+
+**Run local unit tests:**
 ```bash
 ./mvnw clean verify
 ```
 
-The project is also validated against the provided end-to-end evaluator script:
+**Run end-to-end evaluator script:**
 ```bash
 bash financial_manager_tests.sh https://personal-finance-manager-nw2c.onrender.com/api
 ```
@@ -168,13 +184,3 @@ The application is deployed on Render.
 **Live API:**
 https://personal-finance-manager-nw2c.onrender.com
 
-## Assignment Links
-
-**GitHub Repository:**
-https://github.com/PMritunjay1/personal-finance-manager
-
-**Live API:**
-https://personal-finance-manager-nw2c.onrender.com
-
-**E2E Test Script:**
-financial_manager_tests.sh
